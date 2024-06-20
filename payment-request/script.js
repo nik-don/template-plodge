@@ -1,7 +1,7 @@
 function generateText() {
-    const name = document.getElementById('name').value;
-    const reservationId = document.getElementById('reservationId').value;
-    const checkinDate = document.getElementById('checkinDate').value;
+    const name = document.getElementById('name').value.trim();
+    const reservationId = document.getElementById('reservationId').value.trim();
+    const checkinDate = document.getElementById('checkinDate').value.trim();
 
     const formattedDate = formatDate(checkinDate);
 
