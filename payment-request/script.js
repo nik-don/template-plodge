@@ -82,9 +82,11 @@ If you need any help, call 020 7748 38470 or email palmers@palmerslodge.uk`;
 
     const first = `${baseHeader}
 We have attempted to charge the bank card for your upcoming reservation at Palmers Lodge, as we require all reservations to be fully prepaid before arrival.
+
 ${bookingLine}
 
 Unfortunately, we were unable to charge the card you provided. Guests must ensure that they have used a valid payment card, with sufficient funds to cover the total cost of the reservation.
+
 We kindly ask you to complete this payment request within 24 hours so that we can secure your booking.
 
 If we are unable to secure payment, we may have to cancel the booking.
@@ -92,13 +94,16 @@ If you need assistance, please call 020774838470 or email palmers@palmerslodge.u
 
     const second = `${baseHeader}
 This is a friendly reminder and a successive attempt to take payment needed to secure your reservation at Palmers Lodge.
+
 ${bookingLine}
 
-We were not able to charge the card on file in our previous attempt(s). Please complete the payment within 24 hours to avoid cancellation. 
+We were not able to charge the card on file in our previous attempt(s). Please complete the payment within 24 hours to avoid cancellation.
+
 If you need help or an alternative payment method, call 020774838470 or email palmers@palmerslodge.uk.`;
 
     const final = `${baseHeader}
 Final reminder - Action needed to keep your reservation at Palmers Lodge.
+
 ${bookingLine}
 
 Please complete this payment request before it expires. After the expiry, we can no longer keep the reservation confirmed and, unfortunately, the booking will be cancelled.
@@ -186,6 +191,7 @@ If there is an issue with your card or any other support, call 020774838470 or e
   // Initial
   // Do not preselect urgency or date; wait for user action
 })();
+
 
 
 
