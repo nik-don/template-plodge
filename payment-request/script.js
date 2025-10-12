@@ -45,7 +45,7 @@
   }
 
   // New urgency-specific templates
-  function buildUrgencyTemplates(resId, formattedDate) {
+  function buildUrgencyTemplates(name, resId, formattedDate) {
     const within24h = `Dear ${name},
 
 We have attempted to charge the bank card provided for your upcoming reservation at Palmers Lodge, as all bookings must be fully prepaid before arrival.
@@ -119,7 +119,7 @@ If there is an issue with your card or any other support, call 020774838470 or e
     // If urgency selected, use the new guest templates and ignore message type dropdown
     const urgency = getUrgencySelection();
     if (urgency === '12' || urgency === '24') {
-      const { within24h, within12h } = buildUrgencyTemplates(resId, formattedDate);
+      const { within24h, within12h } = buildUrgencyTemplates(name, resId, formattedDate);
       outputEl.value = urgency === '12' ? within12h : within24h;
       // Do not show or change auto note or message type when urgency is used
       autoNote.textContent = '';
@@ -186,5 +186,6 @@ If there is an issue with your card or any other support, call 020774838470 or e
   // Initial
   // Do not preselect urgency or date; wait for user action
 })();
+
 
 
