@@ -34,10 +34,18 @@
     return (checkin - now) / 36e5;
   }
 
+  function getTodayYYYYMMDD() {
+    const now = new Date();
+    const y = now.getFullYear();
+    const m = String(now.getMonth() + 1).padStart(2, '0');
+    const d = String(now.getDate()).padStart(2, '0');
+    return `${y}-${m}-${d}`;
+  }
+
   function getUrgencyHours() {
-    const choice = document.querySelector('input[name="urgency"]:checked')?.value || 'auto';
-    if (choice === '12') return 11.9; // force <12h branch
-    if (choice === '24') return 23.9; // force <24h branch
+    const selected = document.querySelector('input[name="urgency"]:checked')?.value;
+    if (selected === '12') return 11.9; // force <12h branch
+    if (selected === '24') return 23.9; // force <24h branch
     return hoursUntil(dateEl.value);
   }
 
@@ -58,14 +66,14 @@ If you need assistance, please call 020774838470 or email palmers@palmerslodge.u
     const second = `${baseHeader}
 This is a friendly reminder and a successive attempt to take payment needed to secure your reservation at Palmers Lodge.
 ${bookingLine}
-We were not able to charge the card on file in our previous attempt(s). Please complete the payment within 24 hours to avoid cancellation. If you have a different card, you can update the details via the payment link.
+We were not able to charge the card on file in our previous attempt(s). Please complete this payment request within 24 hours to avoid cancellation.
 If you need help or an alternative payment method, call 020774838470 or email palmers@palmerslodge.uk.`;
 
     const final = `${baseHeader}
-Final reminder — Action needed to keep your reservation at Palmers Lodge.
+Final reminder - Action needed to keep your reservation at Palmers Lodge.
 ${bookingLine}
 Please complete this payment request before it expires. After the expiry, we can no longer keep the reservation confirmed and, unfortunately, the booking will be cancelled.
-If there’s an issue with your card or any other support, call 020774838470 or email palmers@palmerslodge.uk.`;
+If there is an issue with your card or any other support, call 020774838470 or email palmers@palmerslodge.uk.`;
 
     return { first, second, final };
   }
@@ -81,7 +89,6 @@ If there’s an issue with your card or any other support, call 020774838470 or 
     if (note) {
       internal.innerHTML = note;
       toggle.style.display = 'inline';
-      // default hidden each time it's regenerated
       internal.style.display = 'none';
       toggle.textContent = 'Show internal note';
     } else {
@@ -93,7 +100,7 @@ If there’s an issue with your card or any other support, call 020774838470 or 
 
   function updateAutoNote(hrs) {
     if (isFinite(hrs) && hrs < 24 && !userOverrodeType) {
-      autoNote.textContent = 'Auto-selected “Final warning” because check-in is within 24 hours.';
+      autoNote.textContent = 'Auto-selected "Final warning" because check-in is within 24 hours.';
       autoNote.style.display = 'block';
       typeEl.value = 'final';
     } else if (isFinite(hrs)) {
@@ -122,7 +129,6 @@ If there’s an issue with your card or any other support, call 020774838470 or 
 
   // Event wiring
   document.addEventListener('click', (e) => {
-    // Paste buttons
     const pasteTarget = e.target.closest('[data-paste]');
     if (pasteTarget) {
       const id = pasteTarget.getAttribute('data-paste');
@@ -145,7 +151,13 @@ If there’s an issue with your card or any other support, call 020774838470 or 
     resIdEl.addEventListener(evt, generateAndRender);
     dateEl.addEventListener(evt, () => { userOverrodeType = false; generateAndRender(); });
     typeEl.addEventListener(evt, () => { userOverrodeType = true; generateAndRender(); });
-    document.querySelectorAll('input[name="urgency"]').forEach(r => r.addEventListener(evt, () => { userOverrodeType = false; generateAndRender(); }));
+
+    // When urgency is selected, set date to today and generate immediately
+    document.querySelectorAll('input[name="urgency"]').forEach(r => r.addEventListener(evt, () => {
+      dateEl.value = getTodayYYYYMMDD();
+      userOverrodeType = false;
+      generateAndRender();
+    }));
   });
 
   // Buttons
@@ -155,7 +167,8 @@ If there’s an issue with your card or any other support, call 020774838470 or 
     resIdEl.value = '';
     dateEl.value = '';
     typeEl.value = 'first';
-    document.querySelector('input[name="urgency"][value="auto"]').checked = true;
+    // clear urgency selection
+    document.querySelectorAll('input[name="urgency"]').forEach(r => r.checked = false);
     outputEl.value = '';
     autoNote.textContent = '';
     autoNote.style.display = 'none';
@@ -173,5 +186,5 @@ If there’s an issue with your card or any other support, call 020774838470 or 
   });
 
   // Initial
-  generateAndRender();
+  // Do not preselect urgency or date; wait for user action
 })();
