@@ -5,7 +5,6 @@ h1 { margin-bottom: 12px; font-size: 1.5em; }
 form { display: flex; flex-direction: column; gap: 12px; align-items: stretch; }
 .form-row { display: flex; gap: 8px; align-items: center; }
 .form-row--wrap { flex-wrap: wrap; align-items: flex-start; }
-/* .form-row > * { flex: 1; } */
 label { font-weight: 600; text-align: left; display: block; margin-bottom: 4px; }
 input, select, textarea, button { padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px; }
 textarea { height: 260px; resize: none; margin-top: 4px; width: 100%; }
@@ -21,9 +20,9 @@ textarea { height: 260px; resize: none; margin-top: 4px; width: 100%; }
 .copy-button:hover { background-color: #008B8B; }
 .notice { font-size: .95rem; color: #0b6; text-align: left; display: none; margin-top: -6px; }
 .warning { color: #b00; }
-/* Removed internal note styles */
 
 /* Radios group */
 .urgency { display: flex; gap: 12px; align-items: center; padding: 8px 10px; border: 1px dashed #ddd; border-radius: 6px; }
 .urgency legend { font-weight: 600; margin-right: 8px; }
 .urgency .radio { display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+
