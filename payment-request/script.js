@@ -5,8 +5,6 @@
   const typeEl = document.getElementById('messageType');
   const outputEl = document.getElementById('outputText');
   const autoNote = document.getElementById('autoNote');
-  const internal = document.getElementById('internalNote');
-  const toggle = document.getElementById('toggleInternal');
   const generateBtn = document.getElementById('generateBtn');
   const clearBtn = document.getElementById('clearBtn');
   const copyBtn = document.getElementById('copyBtn');
@@ -42,14 +40,43 @@
     return `${y}-${m}-${d}`;
   }
 
-  function getUrgencyHours() {
-    const selected = document.querySelector('input[name="urgency"]:checked')?.value;
-    if (selected === '12') return 11.9; // force <12h branch
-    if (selected === '24') return 23.9; // force <24h branch
-    return hoursUntil(dateEl.value);
+  function getUrgencySelection() {
+    return document.querySelector('input[name="urgency"]:checked')?.value || null;
   }
 
-  function buildTemplates(name, resId, formattedDate) {
+  // New urgency-specific templates
+  function buildUrgencyTemplates(resId, formattedDate) {
+    const within24h = `Dear Guest,
+
+We have attempted to charge the bank card provided for your upcoming reservation at Palmers Lodge, as all bookings must be fully prepaid before arrival.
+
+Reservation/OTA ID: ${resId}
+Check-in date: ${formattedDate}
+
+Unfortunately, the payment was unsuccessful. Please ensure you use a valid payment card with sufficient funds and complete the payment within 24 hours to secure your booking.
+
+If payment is not received within this time, we will not be able to hold your reservation and it will be cancelled automatically.
+
+If you need assistance, please call 020 7748 38470 or email palmers@palmerslodge.uk`;
+
+    const within12h = `Dear Guest,
+
+We have tried to charge the card provided for your upcoming reservation at Palmers Lodge, but the payment was unsuccessful.
+
+Reservation/OTA ID: ${resId}
+Check-in date: ${formattedDate}
+
+Please complete your payment within the next 12 hours to keep your booking active. We’re unable to hold unpaid reservations beyond this time, and the booking will be cancelled if payment isn’t received.
+
+We’d love to welcome you, so please make sure to finalise your payment as soon as possible.
+
+If you need any help, call 020 7748 38470 or email palmers@palmerslodge.uk`;
+
+    return { within24h, within12h };
+  }
+
+  // Existing templates (kept for manual use when no urgency is selected)
+  function buildStandardTemplates(name, resId, formattedDate) {
     const baseHeader = `Dear ${name},`;
     const bookingLine = `Reservation/OTA ID: ${resId} / Check-in date: ${formattedDate}`;
 
@@ -66,7 +93,7 @@ If you need assistance, please call 020774838470 or email palmers@palmerslodge.u
     const second = `${baseHeader}
 This is a friendly reminder and a successive attempt to take payment needed to secure your reservation at Palmers Lodge.
 ${bookingLine}
-We were not able to charge the card on file in our previous attempt(s). Please complete this payment request within 24 hours to avoid cancellation.
+We were not able to charge the card on file in our previous attempt(s). Please complete the payment within 24 hours to avoid cancellation. If you have a different card, you can update the details via the payment link.
 If you need help or an alternative payment method, call 020774838470 or email palmers@palmerslodge.uk.`;
 
     const final = `${baseHeader}
@@ -78,50 +105,28 @@ If there is an issue with your card or any other support, call 020774838470 or e
     return { first, second, final };
   }
 
-  function updateInternalNotes(hrs) {
-    let note = '';
-    if (isFinite(hrs) && hrs < 12) {
-      note = `<strong>Internal (\u003c12h):</strong> Check-in within 12 hours. Send payment link and attempt phone contact.`;
-    } else if (isFinite(hrs) && hrs < 24) {
-      note = `<strong>Internal (\u003c24h):</strong> Check-in within 24 hours. Prioritise immediate follow-up. Consider courtesy call. Cancellation may occur later today if unpaid.`;
-    }
-
-    if (note) {
-      internal.innerHTML = note;
-      toggle.style.display = 'inline';
-      internal.style.display = 'none';
-      toggle.textContent = 'Show internal note';
-    } else {
-      internal.innerHTML = '';
-      toggle.style.display = 'none';
-      internal.style.display = 'none';
-    }
-  }
-
-  function updateAutoNote(hrs) {
-    if (isFinite(hrs) && hrs < 24 && !userOverrodeType) {
-      autoNote.textContent = 'Auto-selected "Final warning" because check-in is within 24 hours.';
-      autoNote.style.display = 'block';
-      typeEl.value = 'final';
-    } else if (isFinite(hrs)) {
-      autoNote.textContent = '';
-      autoNote.style.display = 'none';
-    }
-  }
-
   function generateAndRender() {
     const name = nameEl.value.trim();
     const resId = resIdEl.value.trim();
     const dateVal = dateEl.value.trim();
-    if (!name || !resId || !dateVal) { outputEl.value = ''; return; }
+    if (!resId || !dateVal) { outputEl.value = ''; return; }
 
     const formattedDate = formatDate(dateVal);
-    const hrs = getUrgencyHours();
 
-    updateAutoNote(hrs);
-    updateInternalNotes(hrs);
+    // If urgency selected, use the new guest templates and ignore message type dropdown
+    const urgency = getUrgencySelection();
+    if (urgency === '12' || urgency === '24') {
+      const { within24h, within12h } = buildUrgencyTemplates(resId, formattedDate);
+      outputEl.value = urgency === '12' ? within12h : within24h;
+      // Do not show or change auto note or message type when urgency is used
+      autoNote.textContent = '';
+      autoNote.style.display = 'none';
+      return;
+    }
 
-    const { first, second, final } = buildTemplates(name, resId, formattedDate);
+    // Otherwise fall back to standard templates that use the Name field
+    if (!name) { outputEl.value = ''; return; }
+    const { first, second, final } = buildStandardTemplates(name, resId, formattedDate);
     const choice = typeEl.value;
     const text = choice === 'second' ? second : choice === 'final' ? final : first;
     outputEl.value = text;
@@ -136,12 +141,6 @@ If there is an issue with your card or any other support, call 020774838470 or e
         document.getElementById(id).value = t;
         generateAndRender();
       }).catch(err => alert('Failed to read clipboard contents: ' + err));
-    }
-
-    if (e.target === toggle) {
-      const isHidden = internal.style.display === 'none';
-      internal.style.display = isHidden ? 'block' : 'none';
-      toggle.textContent = isHidden ? 'Hide internal note' : 'Show internal note';
     }
   });
 
@@ -167,14 +166,10 @@ If there is an issue with your card or any other support, call 020774838470 or e
     resIdEl.value = '';
     dateEl.value = '';
     typeEl.value = 'first';
-    // clear urgency selection
     document.querySelectorAll('input[name="urgency"]').forEach(r => r.checked = false);
     outputEl.value = '';
     autoNote.textContent = '';
     autoNote.style.display = 'none';
-    internal.innerHTML='';
-    internal.style.display='none';
-    toggle.style.display='none';
     userOverrodeType = false;
   });
 
