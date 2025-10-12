@@ -1,119 +1,30 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f8f9fa;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
+body { font-family: Arial, sans-serif; background-color: #f8f9fa; margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+.container { background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,.1); width: 100%; max-width: 720px; text-align: center; }
+.logo { width: 150px; margin-bottom: 20px; }
+h1 { margin-bottom: 12px; font-size: 1.5em; }
+form { display: flex; flex-direction: column; gap: 12px; align-items: stretch; }
+.form-row { display: flex; gap: 8px; align-items: center; }
+.form-row--wrap { flex-wrap: wrap; align-items: flex-start; }
+.form-row > * { flex: 1; }
+label { font-weight: 600; text-align: left; display: block; margin-bottom: 4px; }
+input, select, textarea, button { padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px; }
+textarea { height: 260px; resize: none; margin-top: 4px; width: 100%; }
+.button-group { display: flex; gap: 8px; }
+.btn { border: none; cursor: pointer; padding: 10px 15px; }
+.btn-primary { background-color: #20B2AA; color: #fff; }
+.btn-primary:hover { background-color: #008B8B; }
+.btn-paste { background-color: #AFEEEE; }
+.btn-paste:hover { background-color: #87CEEB; }
+.copy-button { background-color: #20B2AA; color: #fff; font-size: 18px; padding: 15px; margin-top: 12px; width: 100%; border: none; cursor: pointer; }
+.copy-button:hover { background-color: #008B8B; }
+.notice { font-size: .95rem; color: #0b6; text-align: left; display: none; margin-top: -6px; }
+.warning { color: #b00; }
+.internal { display:none; text-align: left; font-size: .95rem; background: #fff9e6; border: 1px dashed #f0c36d; padding: 10px; border-radius: 6px; }
+.internal strong { color: #a16207; }
+.toggle-link { background:none; border:none; color:#008B8B; cursor:pointer; text-decoration:underline; font-size: .95rem; padding:0; margin-top:8px; }
 
-.container {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 500px;
-    text-align: center;
-}
 
-.logo {
-    width: 150px;
-    margin-bottom: 20px;
-}
-
-h1 {
-    margin-bottom: 20px;
-    font-size: 1.5em;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.form-group {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-    width: 100%;
-}
-
-.label {
-    margin: 10px 0 5px;
-    width: 100%;
-    text-align: left;
-}
-
-input, textarea, button {
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 16px;
-}
-
-input, textarea {
-    flex: 1;
-    margin-right: 10px;
-}
-
-textarea {
-    height: 150px;
-    resize: none;
-    margin-top: 10px;
-}
-
-button {
-    border: none;
-    cursor: pointer;
-    padding: 10px 15px;
-    margin-top: 10px;
-}
-
-.button-group {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-}
-
-button[onclick*="pasteText"] {
-    background-color: #AFEEEE;
-}
-
-button[onclick*="pasteText"]:hover {
-    background-color: #87CEEB;
-}
-
-button[onclick*="generateText"] {
-    background-color: #20B2AA;
-    color: white;
-}
-
-button[onclick*="generateText"]:hover {
-    background-color: #008B8B;
-}
-
-button[onclick*="clearFields"] {
-    background-color: #20B2AA;
-    color: white;
-}
-
-button[onclick*="clearFields"]:hover {
-    background-color: #008B8B;
-}
-
-.copy-button {
-    background-color: #20B2AA;
-    color: white;
-    font-size: 18px;
-    padding: 15px;
-    margin-top: 20px;
-    width: 100%;
-}
-
-.copy-button:hover {
-    background-color: #008B8B;
-}
+/* Radios group */
+.urgency { display: flex; gap: 12px; align-items: center; padding: 8px 10px; border: 1px dashed #ddd; border-radius: 6px; }
+.urgency legend { font-weight: 600; margin-right: 8px; }
+.urgency .radio { display: flex; align-items: center; gap: 6px; white-space: nowrap; }
