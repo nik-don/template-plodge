@@ -1,38 +1,297 @@
+Below are three separate files as requested. Save them in the same folder.
+
+---
+
+## 1) `index.html`
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment Request Generator</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Payment Request Generator</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <div class="container">
-        <img src="https://palmerslodge.uk/wp-content/uploads/2020/03/pl_logo-london-inverted-rgb@2x.png" alt="Palmers Lodge Logo" class="logo">
-        <h1>Payment Request Generator</h1>
-        <form id="reservationForm">
-            <div class="form-group">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required>
-                <button type="button" onclick="pasteText('name')">Paste</button>
-            </div>
-            <div class="form-group">
-                <label for="reservationId">Reservation ID:</label>
-                <input type="text" id="reservationId" name="reservationId" required>
-                <button type="button" onclick="pasteText('reservationId')">Paste</button>
-            </div>
-            <div class="form-group">
-                <label for="checkinDate">Check-in Date:</label>
-                <input type="date" id="checkinDate" name="checkinDate" required>
-            </div>
-            <div class="button-group">
-                <button type="button" onclick="generateText()">Generate Text</button>
-                <button type="button" onclick="clearFields()">Clear Fields</button>
-            </div>
-        </form>
-        <textarea id="outputText" readonly></textarea>
-        <button class="copy-button" type="button" onclick="copyText()">Copy Text</button>
-    </div>
-    <script src="script.js"></script>
+  <div class="container">
+    <img src="https://palmerslodge.uk/wp-content/uploads/2020/03/pl_logo-london-inverted-rgb@2x.png" alt="Palmers Lodge Logo" class="logo" />
+    <h1>Payment Request Generator</h1>
+
+    <form id="reservationForm">
+      <div>
+        <label for="name">Name</label>
+        <div class="form-row">
+          <input type="text" id="name" name="name" placeholder="Guest name" required />
+          <button class="btn btn-paste" type="button" data-paste="name">Paste</button>
+        </div>
+      </div>
+
+      <div>
+        <label for="reservationId">Reservation ID</label>
+        <div class="form-row">
+          <input type="text" id="reservationId" name="reservationId" placeholder="ABC123…" required />
+          <button class="btn btn-paste" type="button" data-paste="reservationId">Paste</button>
+        </div>
+      </div>
+
+      <div>
+        <label for="checkinDate">Check-in Date</label>
+        <div class="form-row form-row--wrap">
+          <input type="date" id="checkinDate" name="checkinDate" required />
+
+          <fieldset class="urgency" aria-label="Urgency override">
+            <legend>Urgency</legend>
+            <label class="radio"><input type="radio" name="urgency" value="auto" checked /> Use date (auto)</label>
+            <label class="radio"><input type="radio" name="urgency" value="24" /> Today — within 24h</label>
+            <label class="radio"><input type="radio" name="urgency" value="12" /> Today — within 12h</label>
+          </fieldset>
+        </div>
+        <div id="autoNote" class="notice" role="status" aria-live="polite"></div>
+      </div>
+
+      <div>
+        <label for="messageType">Message Type</label>
+        <select id="messageType" name="messageType">
+          <option value="first">1st message</option>
+          <option value="second">2nd message</option>
+          <option value="final">Final warning</option>
+        </select>
+      </div>
+
+      <div class="button-group">
+        <button class="btn btn-primary" id="generateBtn" type="button">Generate Text</button>
+        <button class="btn btn-primary" id="clearBtn" type="button">Clear Fields</button>
+      </div>
+    </form>
+
+    <textarea id="outputText" readonly placeholder="Generated message will appear here…"></textarea>
+    <button class="copy-button" type="button" id="copyBtn">Copy Text</button>
+
+    <button id="toggleInternal" class="toggle-link" type="button" style="display:none">Show internal note</button>
+    <div id="internalNote" class="internal"></div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
+```
+
+---
+
+## 2) `styles.css`
+
+```css
+body { font-family: Arial, sans-serif; background-color: #f8f9fa; margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+.container { background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,.1); width: 100%; max-width: 720px; text-align: center; }
+.logo { width: 150px; margin-bottom: 20px; }
+h1 { margin-bottom: 12px; font-size: 1.5em; }
+form { display: flex; flex-direction: column; gap: 12px; align-items: stretch; }
+.form-row { display: flex; gap: 8px; align-items: center; }
+.form-row--wrap { flex-wrap: wrap; align-items: flex-start; }
+.form-row > * { flex: 1; }
+label { font-weight: 600; text-align: left; display: block; margin-bottom: 4px; }
+input, select, textarea, button { padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px; }
+textarea { height: 260px; resize: none; margin-top: 4px; width: 100%; }
+.button-group { display: flex; gap: 8px; }
+.btn { border: none; cursor: pointer; padding: 10px 15px; }
+.btn-primary { background-color: #20B2AA; color: #fff; }
+.btn-primary:hover { background-color: #008B8B; }
+.btn-paste { background-color: #AFEEEE; }
+.btn-paste:hover { background-color: #87CEEB; }
+.copy-button { background-color: #20B2AA; color: #fff; font-size: 18px; padding: 15px; margin-top: 12px; width: 100%; border: none; cursor: pointer; }
+.copy-button:hover { background-color: #008B8B; }
+.notice { font-size: .95rem; color: #0b6; text-align: left; display: none; margin-top: -6px; }
+.warning { color: #b00; }
+.internal { display:none; text-align: left; font-size: .95rem; background: #fff9e6; border: 1px dashed #f0c36d; padding: 10px; border-radius: 6px; }
+.internal strong { color: #a16207; }
+.toggle-link { background:none; border:none; color:#008B8B; cursor:pointer; text-decoration:underline; font-size: .95rem; padding:0; margin-top:8px; }
+
+/* Radios group */
+.urgency { display: flex; gap: 12px; align-items: center; padding: 8px 10px; border: 1px dashed #ddd; border-radius: 6px; }
+.urgency legend { font-weight: 600; margin-right: 8px; }
+.urgency .radio { display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+```
+
+---
+
+## 3) `script.js`
+
+```js
+(function () {
+  const nameEl = document.getElementById('name');
+  const resIdEl = document.getElementById('reservationId');
+  const dateEl = document.getElementById('checkinDate');
+  const typeEl = document.getElementById('messageType');
+  const outputEl = document.getElementById('outputText');
+  const autoNote = document.getElementById('autoNote');
+  const internal = document.getElementById('internalNote');
+  const toggle = document.getElementById('toggleInternal');
+  const generateBtn = document.getElementById('generateBtn');
+  const clearBtn = document.getElementById('clearBtn');
+  const copyBtn = document.getElementById('copyBtn');
+
+  // Track if user manually changed message type (so we don't keep auto-overriding)
+  let userOverrodeType = false;
+
+  function formatDate(dateString) {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) return '';
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
+  }
+
+  function hoursUntil(dateString) {
+    if (!dateString) return Infinity;
+    const now = new Date();
+    const checkin = new Date(dateString);
+    if (!/T\d{2}:\d{2}/.test(dateString)) {
+      checkin.setHours(12, 0, 0, 0); // assume midday local time
+    }
+    return (checkin - now) / 36e5;
+  }
+
+  function getUrgencyHours() {
+    const choice = document.querySelector('input[name="urgency"]:checked')?.value || 'auto';
+    if (choice === '12') return 11.9; // force <12h branch
+    if (choice === '24') return 23.9; // force <24h branch
+    return hoursUntil(dateEl.value);
+  }
+
+  function buildTemplates(name, resId, formattedDate) {
+    const baseHeader = `Dear ${name},`;
+    const bookingLine = `Reservation/OTA ID: ${resId} / Check-in date: ${formattedDate}`;
+
+    const first = `${baseHeader}
+We have attempted to charge the bank card for your upcoming reservation at Palmers Lodge, as we require all reservations to be fully prepaid before arrival.
+${bookingLine}
+Unfortunately, we were unable to charge the card you provided. Guests must ensure that they have used a valid payment card, with sufficient funds to cover the total cost of the reservation.
+We kindly ask you to complete this payment request within 24 hours so that we can secure your booking.
+If we are unable to secure payment, we may have to cancel the booking.
+If you need assistance, please call 020774838470 or email palmers@palmerslodge.uk.`;
+
+    const second = `${baseHeader}
+This is a friendly reminder and a successive attempt to take payment needed to secure your reservation at Palmers Lodge.
+${bookingLine}
+We were not able to charge the card on file in our previous attempt(s). Please complete the payment within 24 hours to avoid cancellation. If you have a different card, you can update the details via the payment link.
+If you need help or an alternative payment method, call 020774838470 or email palmers@palmerslodge.uk.`;
+
+    const final = `${baseHeader}
+Final reminder — action needed to keep your reservation at Palmers Lodge.
+${bookingLine}
+We have sent you a payment request that has an expiry time. Please complete the payment before it expires. After the expiry, we can no longer keep the reservation confirmed and, unfortunately, the booking will be cancelled.
+If there’s an issue with your card, reply to this message so we can help with an alternative.
+For support, call 020774838470 or email palmers@palmerslodge.uk.`;
+
+    return { first, second, final };
+  }
+
+  function updateInternalNotes(hrs) {
+    let note = '';
+    if (isFinite(hrs) && hrs < 12) {
+      note = `<strong>Internal (\u003c12h):</strong> Check-in within 12 hours. Send payment link and attempt phone contact. Hold bed for max 2 hours after this message unless payment confirmed. Escalate to duty manager if no response.`;
+    } else if (isFinite(hrs) && hrs < 24) {
+      note = `<strong>Internal (\u003c24h):</strong> Check-in within 24 hours. Prioritise immediate follow-up. Consider courtesy call and notify front desk to monitor. Cancellation may occur later today if unpaid.`;
+    }
+
+    if (note) {
+      internal.innerHTML = note;
+      toggle.style.display = 'inline';
+      // default hidden each time it's regenerated
+      internal.style.display = 'none';
+      toggle.textContent = 'Show internal note';
+    } else {
+      internal.innerHTML = '';
+      toggle.style.display = 'none';
+      internal.style.display = 'none';
+    }
+  }
+
+  function updateAutoNote(hrs) {
+    if (isFinite(hrs) && hrs < 24 && !userOverrodeType) {
+      autoNote.textContent = 'Auto-selected “Final warning” because check-in is within 24 hours.';
+      autoNote.style.display = 'block';
+      typeEl.value = 'final';
+    } else if (isFinite(hrs)) {
+      autoNote.textContent = '';
+      autoNote.style.display = 'none';
+    }
+  }
+
+  function generateAndRender() {
+    const name = nameEl.value.trim();
+    const resId = resIdEl.value.trim();
+    const dateVal = dateEl.value.trim();
+    if (!name || !resId || !dateVal) { outputEl.value = ''; return; }
+
+    const formattedDate = formatDate(dateVal);
+    const hrs = getUrgencyHours();
+
+    updateAutoNote(hrs);
+    updateInternalNotes(hrs);
+
+    const { first, second, final } = buildTemplates(name, resId, formattedDate);
+    const choice = typeEl.value;
+    const text = choice === 'second' ? second : choice === 'final' ? final : first;
+    outputEl.value = text;
+  }
+
+  // Event wiring
+  document.addEventListener('click', (e) => {
+    // Paste buttons
+    const pasteTarget = e.target.closest('[data-paste]');
+    if (pasteTarget) {
+      const id = pasteTarget.getAttribute('data-paste');
+      navigator.clipboard.readText().then(t => {
+        document.getElementById(id).value = t;
+        generateAndRender();
+      }).catch(err => alert('Failed to read clipboard contents: ' + err));
+    }
+
+    if (e.target === toggle) {
+      const isHidden = internal.style.display === 'none';
+      internal.style.display = isHidden ? 'block' : 'none';
+      toggle.textContent = isHidden ? 'Hide internal note' : 'Show internal note';
+    }
+  });
+
+  // Live updates
+  ['input', 'change'].forEach(evt => {
+    nameEl.addEventListener(evt, generateAndRender);
+    resIdEl.addEventListener(evt, generateAndRender);
+    dateEl.addEventListener(evt, () => { userOverrodeType = false; generateAndRender(); });
+    typeEl.addEventListener(evt, () => { userOverrodeType = true; generateAndRender(); });
+    document.querySelectorAll('input[name="urgency"]').forEach(r => r.addEventListener(evt, () => { userOverrodeType = false; generateAndRender(); }));
+  });
+
+  // Buttons
+  generateBtn.addEventListener('click', generateAndRender);
+  clearBtn.addEventListener('click', () => {
+    nameEl.value = '';
+    resIdEl.value = '';
+    dateEl.value = '';
+    typeEl.value = 'first';
+    document.querySelector('input[name="urgency"][value="auto"]').checked = true;
+    outputEl.value = '';
+    autoNote.textContent = '';
+    autoNote.style.display = 'none';
+    internal.innerHTML='';
+    internal.style.display='none';
+    toggle.style.display='none';
+    userOverrodeType = false;
+  });
+
+  copyBtn.addEventListener('click', async () => {
+    const output = outputEl.value;
+    if (!output) { alert('Nothing to copy yet.'); return; }
+    try { await navigator.clipboard.writeText(output); alert('Text copied to clipboard'); }
+    catch (e) { outputEl.select(); outputEl.setSelectionRange(0, 99999); document.execCommand('copy'); alert('Text copied to clipboard'); }
+  });
+
+  // Initial
+  generateAndRender();
+})();
+```
