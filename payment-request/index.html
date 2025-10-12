@@ -1,38 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment Request Generator</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Payment Request Generator</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <div class="container">
-        <img src="https://palmerslodge.uk/wp-content/uploads/2020/03/pl_logo-london-inverted-rgb@2x.png" alt="Palmers Lodge Logo" class="logo">
-        <h1>Payment Request Generator</h1>
-        <form id="reservationForm">
-            <div class="form-group">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required>
-                <button type="button" onclick="pasteText('name')">Paste</button>
-            </div>
-            <div class="form-group">
-                <label for="reservationId">Reservation ID:</label>
-                <input type="text" id="reservationId" name="reservationId" required>
-                <button type="button" onclick="pasteText('reservationId')">Paste</button>
-            </div>
-            <div class="form-group">
-                <label for="checkinDate">Check-in Date:</label>
-                <input type="date" id="checkinDate" name="checkinDate" required>
-            </div>
-            <div class="button-group">
-                <button type="button" onclick="generateText()">Generate Text</button>
-                <button type="button" onclick="clearFields()">Clear Fields</button>
-            </div>
-        </form>
-        <textarea id="outputText" readonly></textarea>
-        <button class="copy-button" type="button" onclick="copyText()">Copy Text</button>
-    </div>
-    <script src="script.js"></script>
+  <div class="container">
+    <img src="https://palmerslodge.uk/wp-content/uploads/2020/03/pl_logo-london-inverted-rgb@2x.png" alt="Palmers Lodge Logo" class="logo" />
+    <h1>Payment Request Generator</h1>
+
+    <form id="reservationForm">
+      <div>
+        <label for="name">Name</label>
+        <div class="form-row">
+          <input type="text" id="name" name="name" placeholder="Guest name" required />
+          <button class="btn btn-paste" type="button" data-paste="name">Paste</button>
+        </div>
+      </div>
+
+      <div>
+        <label for="reservationId">Reservation ID</label>
+        <div class="form-row">
+          <input type="text" id="reservationId" name="reservationId" placeholder="143…" required />
+          <button class="btn btn-paste" type="button" data-paste="reservationId">Paste</button>
+        </div>
+      </div>
+
+      <!-- Urgency moved before Check-in Date, only two options -->
+      <div>
+        <fieldset class="urgency" aria-label="Urgency override">
+          <legend>Urgency</legend>
+          <label class="radio"><input type="radio" name="urgency" value="24" /> Today - within 24h</label>
+          <label class="radio"><input type="radio" name="urgency" value="12" /> Today - within 12h</label>
+        </fieldset>
+      </div>
+
+      <div>
+        <label for="checkinDate">Check-in Date</label>
+        <div class="form-row form-row--wrap">
+          <input type="date" id="checkinDate" name="checkinDate" required />
+        </div>
+        <div id="autoNote" class="notice" role="status" aria-live="polite"></div>
+      </div>
+
+      <div>
+        <label for="messageType">Message Type</label>
+        <select id="messageType" name="messageType">
+          <option value="first">1st message</option>
+          <option value="second">2nd message</option>
+          <option value="final">Final warning</option>
+        </select>
+      </div>
+
+      <div class="button-group">
+        <button class="btn btn-primary" id="generateBtn" type="button">Generate Text</button>
+        <button class="btn btn-outline" id="clearBtn" type="button">Clear Fields</button>
+      </div>
+    </form>
+
+    <textarea id="outputText" readonly placeholder="Generated message will appear here…"></textarea>
+    <button class="copy-button" type="button" id="copyBtn">Copy Text</button>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
+
