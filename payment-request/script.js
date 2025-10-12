@@ -93,11 +93,11 @@ If we are unable to secure payment, we may have to cancel the booking.
 If you need assistance, please call 020774838470 or email palmers@palmerslodge.uk.`;
 
     const second = `${baseHeader}
-This is a friendly reminder and a successive attempt to take payment needed to secure your reservation at Palmers Lodge.
+This is a reminder and a successive attempt to take payment needed to secure your upcoming reservation at Palmers Lodge.
 
 ${bookingLine}
 
-We were not able to charge the card on file in our previous attempt(s). Please complete the payment within 24 hours to avoid cancellation.
+We were not able to charge the card on file in our previous attempt(s). Please complete this payment request to avoid cancellation.
 
 If you need help or an alternative payment method, call 020774838470 or email palmers@palmerslodge.uk.`;
 
@@ -191,6 +191,7 @@ If there is an issue with your card or any other support, call 020774838470 or e
   // Initial
   // Do not preselect urgency or date; wait for user action
 })();
+
 
 
 
