@@ -53,7 +53,7 @@ We have attempted to charge the bank card provided for your upcoming reservation
 Reservation/OTA ID: ${resId}
 Check-in date: ${formattedDate}
 
-Unfortunately, the payment was unsuccessful. Please ensure you use a valid payment card with sufficient funds and complete the payment within 24 hours to secure your booking.
+Unfortunately, the payment was unsuccessful. Please ensure you use a valid payment card with sufficient funds and complete this payment request within 24 hours to secure your booking.
 
 If payment is not received within this time, we will not be able to hold your reservation and it will be cancelled automatically.
 
@@ -66,7 +66,7 @@ We have tried to charge the card provided for your upcoming reservation at Palme
 Reservation/OTA ID: ${resId}
 Check-in date: ${formattedDate}
 
-Please complete your payment within the next 12 hours to keep your booking active. We’re unable to hold unpaid reservations beyond this time, and the booking will be cancelled if payment isn’t received.
+Please complete this payment request within the next 12 hours to keep your booking active. We’re unable to hold unpaid reservations beyond this time, and the booking will be cancelled if payment isn’t received.
 
 We’d love to welcome you, so please make sure to finalise your payment as soon as possible.
 
@@ -93,13 +93,16 @@ If you need assistance, please call 020774838470 or email palmers@palmerslodge.u
     const second = `${baseHeader}
 This is a friendly reminder and a successive attempt to take payment needed to secure your reservation at Palmers Lodge.
 ${bookingLine}
-We were not able to charge the card on file in our previous attempt(s). Please complete the payment within 24 hours to avoid cancellation. If you have a different card, you can update the details via the payment link.
+
+We were not able to charge the card on file in our previous attempt(s). Please complete the payment within 24 hours to avoid cancellation. 
 If you need help or an alternative payment method, call 020774838470 or email palmers@palmerslodge.uk.`;
 
     const final = `${baseHeader}
 Final reminder - Action needed to keep your reservation at Palmers Lodge.
 ${bookingLine}
+
 Please complete this payment request before it expires. After the expiry, we can no longer keep the reservation confirmed and, unfortunately, the booking will be cancelled.
+
 If there is an issue with your card or any other support, call 020774838470 or email palmers@palmerslodge.uk.`;
 
     return { first, second, final };
@@ -183,3 +186,4 @@ If there is an issue with your card or any other support, call 020774838470 or e
   // Initial
   // Do not preselect urgency or date; wait for user action
 })();
+
