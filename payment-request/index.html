@@ -29,16 +29,17 @@
       </div>
 
       <div>
+        <fieldset class="urgency" aria-label="Urgency override">
+          <legend>Urgency</legend>
+          <label class="radio"><input type="radio" name="urgency" value="24" /> Today - within 24h</label>
+          <label class="radio"><input type="radio" name="urgency" value="12" /> Today - within 12h</label>
+        </fieldset>
+      </div>
+
+      <div>
         <label for="checkinDate">Check-in Date</label>
         <div class="form-row form-row--wrap">
           <input type="date" id="checkinDate" name="checkinDate" required />
-
-          <fieldset class="urgency" aria-label="Urgency override">
-            <legend>Urgency</legend>
-            <label class="radio"><input type="radio" name="urgency" value="auto" checked /> Use date (auto)</label>
-            <label class="radio"><input type="radio" name="urgency" value="24" /> Today — within 24h</label>
-            <label class="radio"><input type="radio" name="urgency" value="12" /> Today — within 12h</label>
-          </fieldset>
         </div>
         <div id="autoNote" class="notice" role="status" aria-live="polite"></div>
       </div>
@@ -54,7 +55,7 @@
 
       <div class="button-group">
         <button class="btn btn-primary" id="generateBtn" type="button">Generate Text</button>
-        <button class="btn btn-primary" id="clearBtn" type="button">Clear Fields</button>
+        <button class="btn btn-outline" id="clearBtn" type="button">Clear Fields</button>
       </div>
     </form>
 
