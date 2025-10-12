@@ -10,19 +10,20 @@ label { font-weight: 600; text-align: left; display: block; margin-bottom: 4px; 
 input, select, textarea, button { padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px; }
 textarea { height: 260px; resize: none; margin-top: 4px; width: 100%; }
 .button-group { display: flex; gap: 8px; }
-.btn { border: none; cursor: pointer; padding: 10px 15px; }
-.btn-primary { background-color: #20B2AA; color: #fff; }
+.btn { cursor: pointer; padding: 10px 15px; border-radius: 4px; }
+.btn-primary { background-color: #20B2AA; color: #fff; border: 1px solid #20B2AA; }
 .btn-primary:hover { background-color: #008B8B; }
-.btn-paste { background-color: #AFEEEE; }
-.btn-paste:hover { background-color: #87CEEB; }
-.copy-button { background-color: #20B2AA; color: #fff; font-size: 18px; padding: 15px; margin-top: 12px; width: 100%; border: none; cursor: pointer; }
+.btn-outline { background-color: #fff; color: #20B2AA; border: 1px solid #20B2AA; }
+.btn-outline:hover { background-color: #f0fffe; }
+.btn-paste { background-color: #AFEEEE; border: 1px solid #AFEEEE; }
+.btn-paste:hover { background-color: #87CEEB; border-color: #87CEEB; }
+.copy-button { background-color: #20B2AA; color: #fff; font-size: 18px; padding: 15px; margin-top: 12px; width: 100%; border: none; cursor: pointer; border-radius: 4px; }
 .copy-button:hover { background-color: #008B8B; }
 .notice { font-size: .95rem; color: #0b6; text-align: left; display: none; margin-top: -6px; }
 .warning { color: #b00; }
 .internal { display:none; text-align: left; font-size: .95rem; background: #fff9e6; border: 1px dashed #f0c36d; padding: 10px; border-radius: 6px; }
 .internal strong { color: #a16207; }
 .toggle-link { background:none; border:none; color:#008B8B; cursor:pointer; text-decoration:underline; font-size: .95rem; padding:0; margin-top:8px; }
-
 
 /* Radios group */
 .urgency { display: flex; gap: 12px; align-items: center; padding: 8px 10px; border: 1px dashed #ddd; border-radius: 6px; }
