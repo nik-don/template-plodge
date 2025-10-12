@@ -46,7 +46,7 @@
 
   // New urgency-specific templates
   function buildUrgencyTemplates(resId, formattedDate) {
-    const within24h = `Dear Guest,
+    const within24h = `Dear ${name},
 
 We have attempted to charge the bank card provided for your upcoming reservation at Palmers Lodge, as all bookings must be fully prepaid before arrival.
 
@@ -59,7 +59,7 @@ If payment is not received within this time, we will not be able to hold your re
 
 If you need assistance, please call 020 7748 38470 or email palmers@palmerslodge.uk`;
 
-    const within12h = `Dear Guest,
+    const within12h = `Dear ${name},
 
 We have tried to charge the card provided for your upcoming reservation at Palmers Lodge, but the payment was unsuccessful.
 
@@ -68,7 +68,7 @@ Check-in date: ${formattedDate}
 
 Please complete this payment request within the next 12 hours to keep your booking active. We’re unable to hold unpaid reservations beyond this time, and the booking will be cancelled if payment isn’t received.
 
-We’d love to welcome you, so please make sure to finalise your payment as soon as possible.
+We look forward to welcoming you, so please make sure to finalise your payment as soon as possible.
 
 If you need any help, call 020 7748 38470 or email palmers@palmerslodge.uk`;
 
@@ -186,4 +186,5 @@ If there is an issue with your card or any other support, call 020774838470 or e
   // Initial
   // Do not preselect urgency or date; wait for user action
 })();
+
 
