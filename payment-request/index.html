@@ -28,13 +28,7 @@
         </div>
       </div>
 
-      <div>
-        <fieldset class="urgency" aria-label="Urgency override">
-          <legend>Urgency (optional)</legend>
-          <label class="radio"><input type="radio" name="urgency" value="24" /> Today - within 24h</label>
-          <label class="radio"><input type="radio" name="urgency" value="12" /> Today - within 12h</label>
-        </fieldset>
-      </div>
+      
 
       <div>
         <label for="checkinDate">Check-in Date</label>
@@ -62,6 +56,14 @@
     <textarea id="outputText" readonly placeholder="Generated message will appear here…"></textarea>
     <button class="copy-button" type="button" id="copyBtn">Copy Text</button>
   </div>
+  
+  <div>
+        <fieldset class="urgency" aria-label="Urgency override">
+          <legend>Urgency (optional)</legend>
+          <label class="radio"><input type="radio" name="urgency" value="24" /> Today - within 24h</label>
+          <label class="radio"><input type="radio" name="urgency" value="12" /> Today - within 12h</label>
+        </fieldset>
+      </div>
 
   <script src="script.js"></script>
 </body>
