@@ -1,7 +1,7 @@
 <!DOCTYPE html
   PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
-
+ 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,20 +11,42 @@
     body, table, td { font-family: Arial, sans-serif !important; }
   </style>
   <![endif]-->
+  <style type="text/css">
+    /* Mobile styles */
+    @media only screen and (max-width: 620px) {
+      .email-container {
+        width: 100% !important;
+      }
+      .header-cell {
+        display: block !important;
+        width: 100% !important;
+        text-align: center !important;
+        padding-bottom: 10px !important;
+      }
+      .header-cell img {
+        margin: 0 auto !important;
+      }
+      .footer-image {
+        width: 100% !important;
+        max-height: none !important;
+        height: auto !important;
+      }
+    }
+  </style>
 </head>
-
+ 
 <body
-  style="margin: 0; padding: 0; background-color: #f4f4f4; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100;">
-
+  style="margin: 0; padding: 0; background-color: #f4f4f4; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;">
+ 
   <!-- OUTER WRAPPER -->
   <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #f4f4f4;">
     <tr>
       <td align="center" style="padding: 20px 10px;">
-
+ 
         <!-- EMAIL CONTAINER — 600px -->
-        <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600"
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600" class="email-container"
           style="max-width: 600px; width: 100%; background-color: #e0dfdd;">
-
+ 
           <!-- ============================================ -->
           <!-- HEADER:                                      -->
           <!-- ============================================ -->
@@ -33,12 +55,12 @@
               <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
                 <tr>
                   <!-- LEFT: 20th Anniversary Banner -->
-                  <td align="left" valign="middle" style="width: 65%;">
+                  <td align="left" valign="middle" class="header-cell" style="width: 65%;">
                     <img src="https://nikmirko.github.io/pl/anniversary%20banner.png" alt="20th Anniversary" width="350"
                       height="80" style="display: block; border: 0; outline: none; max-width: 100%; height: auto;" />
                   </td>
                   <!-- RIGHT: Company Logo -->
-                  <td align="right" valign="middle" style="width: 35%;">
+                  <td align="right" valign="middle" class="header-cell" style="width: 35%;">
                     <img src="https://nikmirko.github.io/pl/logo.png" alt="Palmers Lodge Logo"
                       style="display: block; border: 0; outline: none; max-width: 150px; height: auto;" />
                   </td>
@@ -46,7 +68,7 @@
               </table>
             </td>
           </tr>
-
+ 
           <!-- ============================================ -->
           <!-- DIVIDER                                      -->
           <!-- ============================================ -->
@@ -59,7 +81,7 @@
               </table>
             </td>
           </tr>
-
+ 
           <!-- ============================================ -->
           <!-- EMAIL BODY                                   -->
           <!-- ============================================ -->
@@ -79,24 +101,24 @@
                     style="font-family: 'P22Underground', 'P22 Underground', Arial, Helvetica, sans-serif; font-size: 15px; color: #444444; line-height: 1.7; padding-bottom: 18px;">
                     This year marks a rather special milestone for us at Palmers Lodge Swiss Cottage - <strong
                       style="color: #4bb8b5;">20 years</strong> of welcoming guests, building connections, and growing
-                    alongside the people who’ve supported us along the way.
+                    alongside the people who've supported us along the way.
                   </td>
                 </tr>
                 <!-- Paragraph 2 -->
                 <tr>
                   <td
                     style="font-family: 'P22Underground', 'P22 Underground', Arial, Helvetica, sans-serif; font-size: 15px; color: #444444; line-height: 1.7; padding-bottom: 18px;">
-                    On Thursday, <strong>4th June 2026</strong>, we’ll be celebrating the occasion, and we’d love for
+                    On Thursday, <strong>4th June 2026</strong>, we'll be celebrating the occasion, and we'd love for
                     you to join us.
                   </td>
                 </tr>
-
+ 
                 <!-- Paragraph 3 -->
                 <tr>
                   <td
                     style="font-family: 'P22Underground', 'P22 Underground', Arial, Helvetica, sans-serif; font-size: 15px; color: #444444; line-height: 1.7; padding-bottom: 18px;">
                     As you know, making a hostel work takes more than just keeping the lights on and the beds filled.
-                    It’s about strong partnerships, trust, and a shared commitment to keeping things running smoothly.
+                    It's about strong partnerships, trust, and a shared commitment to keeping things running smoothly.
                     Your support over the years has been a big part of that, and we truly appreciate it.
                   </td>
                 </tr>
@@ -104,7 +126,7 @@
                 <tr>
                   <td
                     style="font-family: 'P22Underground', 'P22 Underground', Arial, Helvetica, sans-serif; font-size: 15px; color: #444444; line-height: 1.7; padding-bottom: 18px;">
-                    More details to follow soon, but for now, please save the date - we’d really love to see you there.
+                    More details to follow soon, but for now, please save the date - we'd really love to see you there.
                   </td>
                 </tr>
                 <!-- Sign-off -->
@@ -129,17 +151,18 @@
               </table>
             </td>
           </tr>
-
+ 
           <!-- ============================================ -->
           <!-- FOOTER IMAGE                                 -->
           <!-- ============================================ -->
           <tr>
             <td style="padding: 30px 0 0 0; font-size: 0; line-height: 0;">
              <img src="https://nikmirko.github.io/pl/hero_swiss.png" alt="Hero image Swiss Cottage Palmers Lodge"
-                      style="display: block; border: 0; outline: none; max-height: 300px; width: auto;" />
+                      class="footer-image"
+                      style="display: block; border: 0; outline: none; width: 100%; max-width: 600px; height: auto;" />
             </td>
           </tr>
-
+ 
           <!-- ============================================ -->
           <!-- FOOTER TEXT                                  -->
           <!-- ============================================ -->
@@ -165,15 +188,16 @@
         </table>
       </td>
     </tr>
-
+ 
   </table>
   <!-- /EMAIL CONTAINER -->
-
+ 
   </td>
   </tr>
   </table>
   <!-- /OUTER WRAPPER -->
-
+ 
 </body>
-
+ 
 </html>
+
