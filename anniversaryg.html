@@ -14,20 +14,20 @@
   <style type="text/css">
     /* Mobile styles */
     @media only screen and (max-width: 620px) {
-      .email-container {
-        width: 100% !important;
-      }
-      .header-cell {
+      .header-cell-left,
+      .header-cell-right {
         display: block !important;
         width: 100% !important;
-        text-align: center !important;
         padding-bottom: 10px !important;
       }
-      .header-cell img {
+      .header-cell-right {
+        text-align: center !important;
+      }
+      .header-cell-right img {
         margin: 0 auto !important;
       }
       .footer-image {
-        width: 100% !important;
+        max-width: 100% !important;
         max-height: none !important;
         height: auto !important;
       }
@@ -58,12 +58,12 @@
               <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
                 <tr>
                   <!-- LEFT: 20th Anniversary Banner -->
-                  <td align="left" valign="middle" class="header-cell" style="width: 65%;">
+                  <td align="left" valign="middle" class="header-cell-left" style="width: 65%;">
                     <img src="https://nikmirko.github.io/pl/anniversary%20banner.png" alt="20th Anniversary" width="350"
                       height="80" style="display: block; border: 0; outline: none; max-width: 100%; height: auto;" />
                   </td>
                   <!-- RIGHT: Company Logo -->
-                  <td align="right" valign="middle" class="header-cell" style="width: 35%;">
+                  <td align="right" valign="middle" class="header-cell-right" style="width: 35%;">
                     <img src="https://nikmirko.github.io/pl/logo.png" alt="Palmers Lodge Logo"
                       style="display: block; border: 0; outline: none; max-width: 150px; height: auto;" />
                   </td>
